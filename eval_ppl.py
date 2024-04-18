@@ -21,11 +21,13 @@ from scale_rope.inconsistent_rope_for_perplexity import replace_llama_attn_with_
 
 
 def load_model(model, args):
+    # 根据模型名称自动加载模型配置；trust_remote_code=True表示信任远程代码，即允许从远程服务器加载模型配置
     config = AutoConfig.from_pretrained(model, trust_remote_code=True)
+    # 接下来一部分是根据一些参数来配置模型
     if args.rope_scaling_type is not None:
         config.rope_scaling = {"type": args.rope_scaling_type,
                                "factor": args.rope_scaling_scale}
-
+    # 是否进行量化配置，如果加载8位或者4位模型，创建BitsAndBytesConfig对象并设置属性
     if args.load_in_8bit or args.load_in_4bit:
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=args.load_in_4bit,
@@ -44,7 +46,7 @@ def load_model(model, args):
     loaded = AutoModelForCausalLM.from_pretrained(
         model,
         torch_dtype=torch_dtype,
-        device_map="sequential",
+        device_map="sequential", # 模型如何加载到设备上
         trust_remote_code=True,
         config=config,
         quantization_config=quantization_config
