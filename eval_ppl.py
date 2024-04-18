@@ -8,14 +8,15 @@ PROJECT_ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT_PATH)
 
 import warnings
-import datasets
-import evaluate
+import datasets # 访问各种nlp数据集
+import evaluate 
 import numpy as np
 import torch
-from torch.nn import CrossEntropyLoss
-from tqdm import tqdm
+from torch.nn import CrossEntropyLoss # 导入交叉熵损失
+from tqdm import tqdm # 用于在循环中显示进度条
 from transformers import AutoConfig, BitsAndBytesConfig, AutoModelForCausalLM
-from transformers import AutoTokenizer
+# 上述类用于配置加载预训练的transformer模型
+from transformers import AutoTokenizer # 自动选择恰当分词器
 from scale_rope.inconsistent_rope_for_perplexity import replace_llama_attn_with_inconsistent_ntk_rope_for_ppl
 
 
