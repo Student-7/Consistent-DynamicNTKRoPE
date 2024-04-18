@@ -3,8 +3,10 @@ import os
 import sys
 
 PROJECT_ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# abspath返回绝对路径
+# dirname返回父目录路径
 sys.path.append(PROJECT_ROOT_PATH)
-###
+
 import warnings
 import datasets
 import evaluate
