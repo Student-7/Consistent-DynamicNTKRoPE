@@ -1,4 +1,4 @@
-import argparse
+import argparse # 规定程序如何使用命令行参数
 import os
 import sys
 
